@@ -10,7 +10,13 @@
     <mvc:resources mapping="/resource/**" location="WEB-INF/resource/"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="order" value="2"/>
+        <property name="suffix" value=".html"/>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="order" value="3"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 

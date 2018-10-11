@@ -1,0 +1,9 @@
+$(document).ready(function(){
+   console.log("gaha");
+   $.ajax({
+       url:"returnJson",
+       success:function(res){
+           $("#text").text(res);
+       }
+   });
+});
