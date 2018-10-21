@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="resource/css/demo.css" />
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>-->
+    <script src="resource/js/vue-2.5.17.min.js"></script>
+</head>
+<body>
+    <div id="firstVue">
+        <input type="number" v-model.number="my_step"/>
+        <button v-on:click="clickButton">Add</button>
+        <p>{{my_step}}</p>
+        <p>{{my_total}}</p>
+    </div>
+    <div id="app">
+        <h1>Hello, Vue.js!</h1>
+        <!-- 直接没有元素 -->
+        <h1 v-if="yes">Yes!</h1>
+        <h1 v-if="no">No!</h1>
+        <h1 v-if="age >= 25">Age: {{ age }}</h1>
+        <h1 v-else-if="age< 23">LittleAge: {{ age }}</h1>
+        <h1 v-else="age< 23">Name: {{ name }}</h1>
+        <h1 v-if="name.indexOf('jack') >= 0">Name: {{ name }}</h1>
+        <!-- 只是设置了display none -->
+        <h1 v-show="yes">Yes!</h1>
+        <h1 v-show="no">No!</h1>
+        <h1 v-show="age >= 25">Age: {{ age }}</h1>
+        <h1 v-show="name.indexOf('jack') >= 0">Name: {{ name }}</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="person in people">
+                <td>{{ person.name  }}</td>
+                <td>{{ person.age  }}</td>
+                <td>{{ person.sex  }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="pagination">
+            <li v-for="n in pageCount">
+                <a href="javascripit:void(0)" :class="activeNumber === n ? 'active' : ''">{{ n }}</a>
+            </li>
+        </ul>
+
+        <p><input type="text" v-model="message">{{message|capitalize}}</p>
+        <p>
+            <!--click事件直接绑定一个方法-->
+            <button @click="greet">Greet</button>
+        </p>
+        <p>
+            <!--click事件使用内联语句-->
+            <button @click="say('Hi')">Hi</button>
+        </p>
+
+        <a :href="url" :target="target">clickme!!</a>
+    </div>
+
+    <div id="vue_det">
+        <h1>site : {{site}}</h1>
+        <h1>url : {{url}}</h1>
+        <h1>{{details()}}</h1>
+    </div>
+</body>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#firstVue',
+        data: {
+            my_step: 1,
+            my_total: 0
+        },
+        methods: {
+            clickButton: function () {
+                this.my_total = this.my_total + this.my_step
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            yes: true,
+            no: false,
+            age: 24,
+            name: 'keepfool',
+            sex: 'Male',
+            people: [{
+                name: 'Jack',
+                age: 30,
+                sex: 'Male'
+            }, {
+                name: 'Bill',
+                age: 26,
+                sex: 'Male'
+            }, {
+                name: 'Tracy',
+                age: 22,
+                sex: 'Female'
+            }, {
+                name: 'Chris',
+                age: 36,
+                sex: 'Male'
+            }],
+
+            activeNumber: 1,
+            pageCount: 10,
+            message: "gsdgsdg",
+
+            url:"www.baidu.com",
+            target:"_blank"
+        },
+        methods: {
+            greet: function() {
+                // // 方法内 `this` 指向 vm
+                alert(this.message)
+            },
+            say: function(msg) {
+                alert(msg)
+            }
+        },
+        filters: {
+            capitalize: function (value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.charAt(0).toUpperCase() + value.slice(1)
+            }
+        }
+    });
+    var vm2 = new Vue({
+        el: '#vue_det',
+        data: {
+            site: "菜鸟教程",
+            url: "www.runoob.com",
+            alexa: "10000"
+        },
+        methods: {
+            details: function() {
+                return  this.site + " - 学的不仅是技术，更是梦想！";
+            },
+            addProp: function() {
+                if (!this.count) {
+                    Vue.set(this, "count", 1);    //自增属性必须使用此方法，该方法可以确保属性被创建后也是响应式的，同时触发视图更新
+                } else {
+                    this.count++;
+                }
+            }
+        }
+    });
+</script>
+</html>

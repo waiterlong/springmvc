@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="resource/css/demo.css" />
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>-->
+    <script src="resource/js/vue-2.5.17.min.js"></script>
+</head>
+<body>
+
+<div id = "app">
+    <p style = "font-size:25px;">计数器: {{ counter }}</p>
+    <button @click = "counter++" style = "font-size:25px;">点我</button>
+</div>
+
+</body>
+<script type = "text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            counter: 1
+        }
+    });
+    vm.$watch('counter', function(nval, oval) {
+        alert('计数器值的变化 :' + oval + ' 变为 ' + nval + '!');
+    });
+</script>
+</html>
