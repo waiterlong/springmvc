@@ -52,4 +52,30 @@ public class TestController {
     public String goVueWatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         return "html/VueWatch";
     }
+    /**
+     *  Vue的监听属性demo  watch
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/goBootstrapVue")
+    public String goVueBootstrap(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        return "html/bootstrapVue";
+    }
+    /**
+     *  Vue的监听属性demo  watch
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/goVueDemo")
+    public String goVueDemo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String htmlName = request.getParameter("htmlName");
+        if ("shoppingTrolleyDemo".equals(htmlName)) {
+            return "html/vueDemo/shoppingTrolleyDemo";
+        } else if ("searchingTxtboxDemo".equals(htmlName)) {
+            return  "html/vueDemo/searchingTxtboxDemo";
+        }
+        return "html/bootstrapVue";
+    }
 }

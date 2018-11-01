@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue+boostrap最佳实践4</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+<div style="margin-left: 100px;margin-top: 100px;width:600px" id="main">
+    <div  class="input-group">
+        <input v-model="searchString" type="text" class="form-control" placeholder="请输入标题名称">
+        <div class="input-group-addon">搜索</div>
+    </div>
+    <ul class="list-group">
+        <template v-for="msg in msgs|searchFor searchString">
+            <li class="list-group-item">
+                <span>{{msg.title}}</span>
+                <span style="margin-left:10px">{{msg.author}}</span>
+            </li>
+        </template>
+    </ul>
+</div>
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="resource/js/vue-2.5.17.min.js"></script>
+<script src="//cdn.bootcss.com/vue-router/2.0.3/vue-router.js" type="text/javascript" charset="utf-8"></script>
+<script src="//cdn.bootcss.com/vue-resource/1.0.3/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+<script>
+    window.onload=function(){
+        var data={
+            searchString:"",
+            msgs:[
+                {
+                    title:'the best technology is the most basic',
+                    author:'谢灿勇'
+                },
+                {
+                    title:'hijacking the javascript function',
+                    author:'谢灿勇'
+                },
+                {
+                    title:'use karma to test multiple broswer',
+                    author:"司徒正美"
+                }
+            ]};
+        //定义一个自定的过滤器叫做searchFor,传递一个过滤参数searchString
+        //第一个参数指的是要过滤的数据源data
+        Vue.filter("searchFor",function(value,searchString){
+            //判断传入的内容是否为空
+            if(!searchString){
+                //将要过滤的对象全部返回，也就是是相当于什么都没有操作一样
+                //程序也在这个地方终止不会继续向下走
+                return value;
+            }
+            //将输入的内容统一为小写或者大写
+            seearchString=searchString.trim().toLowerCase();
+            var result=[];
+            //item指代当前数据
+            result=value.filter(function(item){
+                //查询的内容不存在
+                if(item.title.toLowerCase().indexOf(searchString) !== -1){
+                    return item;
+                }
+            });
+            return result;
+        });
+        var demo=new Vue({
+            el:'#main',
+            data:data,
+
+        })
+    }
+</script>
+</html>
